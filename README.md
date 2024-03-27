@@ -1,1 +1,1 @@
-# Job Application Tracker API Codebaase
+# Job Application Tracker API Codebase
