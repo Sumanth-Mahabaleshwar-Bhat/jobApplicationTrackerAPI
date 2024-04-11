@@ -2,7 +2,6 @@ package com.jobs.jobtracker.Service;
 
 import com.jobs.jobtracker.Model.Jobs;
 import com.jobs.jobtracker.Repository.JobsRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +29,7 @@ public class JobsService {
         return jobsRepository.save(job);
     }
 
-    public void updateJob(String id, Jobs updatedJob) {
+    public Optional<Jobs> updateJob(String id, Jobs updatedJob) {
         Optional<Jobs> existingJob = jobsRepository.findJobByjobRequisitionId(id);
         existingJob.ifPresent(job -> {
             job.setJobRequisitionId(updatedJob.getJobRequisitionId());
@@ -46,6 +45,7 @@ public class JobsService {
             job.setApplicationStatus(updatedJob.getApplicationStatus());
             jobsRepository.save(job);
         });
+        return existingJob;
     }
 
     public void deleteJob(String id) {

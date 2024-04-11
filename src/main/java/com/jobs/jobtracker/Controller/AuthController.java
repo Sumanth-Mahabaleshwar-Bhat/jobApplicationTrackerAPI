@@ -72,4 +72,14 @@ public class AuthController {
             return ResponseEntity.ok(responseBody);
         }
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(String request) {
+        try {
+            SecurityContextHolder.clearContext();
+            return ResponseEntity.status(HttpStatus.OK).body("User logged out successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during logout.");
+        }
+    }
 }

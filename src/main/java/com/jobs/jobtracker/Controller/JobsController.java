@@ -29,18 +29,18 @@ public class JobsController {
 
     @PostMapping
     public ResponseEntity<Jobs> createJob(@RequestBody Jobs job) {
-        return new ResponseEntity<>(jobsService.createJob(job), HttpStatus.CREATED);
+        return new ResponseEntity<Jobs>(jobsService.createJob(job), HttpStatus.CREATED);
     }
 
     @PutMapping("/{jobRequisitionId}")
-    public ResponseEntity<Void> updateJob(@PathVariable String jobRequisitionId, @RequestBody Jobs updatedJob) {
-        jobsService.updateJob(jobRequisitionId, updatedJob);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Optional<Jobs>> updateJob(@PathVariable String jobRequisitionId, @RequestBody Jobs updatedJob) {
+        Optional<Jobs> updatedJobApplicationDetails = jobsService.updateJob(jobRequisitionId, updatedJob);
+        return new ResponseEntity<Optional<Jobs>>(updatedJobApplicationDetails, HttpStatus.OK);
     }
 
     @DeleteMapping("/{jobRequisitionId}")
-    public ResponseEntity<Void> deleteJob(@PathVariable String id) {
-        jobsService.deleteJob(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteJob(@PathVariable String jobRequisitionId) {
+        jobsService.deleteJob(jobRequisitionId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
